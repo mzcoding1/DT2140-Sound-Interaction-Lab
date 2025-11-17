@@ -12,7 +12,7 @@ let dspNodeParams = null;
 let jsonParams = null;
 
 // Change here to ("tuono") depending on your wasm file name
-const dspName = "tuono";
+const dspName = "bubbleTest";
 const instance = new FaustWasm2ScriptProcessor(dspName);
 
 // output to window or npm package module
@@ -25,7 +25,7 @@ if (typeof module === "undefined") {
 }
 
 // The name should be the same as the WASM file, so change tuono with brass if you use brass.wasm
-tuono.createDSP(audioContext, 1024)
+bubbleTest.createDSP(audioContext, 1024)
     .then(node => {
         dspNode = node;
         dspNode.connect(audioContext.destination);
@@ -102,8 +102,17 @@ function playAudio() {
     if (audioContext.state === 'suspended') {
         return;
     }
-    dspNode.setParamValue("/thunder/rumble", 1)
-    setTimeout(() => { dspNode.setParamValue("/thunder/rumble", 0) }, 100);
+
+
+    dspNode.setParamValue("/bubbleTest/bubble/freq", 600);  
+
+    // 
+    dspNode.setParamValue("/bubbleTest/drop", 1);
+    setTimeout(() => {
+        dspNode.setParamValue("/bubbleTest/drop", 0);
+    }, 60);
+
+
 }
 
 //==========================================================================================

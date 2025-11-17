@@ -12,7 +12,7 @@ let dspNodeParams = null;
 let jsonParams = null;
 
 // Change here to ("tuono") depending on your wasm file name
-const dspName = "tuono";
+const dspName = "englishBellTest";
 const instance = new FaustWasm2ScriptProcessor(dspName);
 
 // output to window or npm package module
@@ -25,7 +25,7 @@ if (typeof module === "undefined") {
 }
 
 // The name should be the same as the WASM file, so change tuono with brass if you use brass.wasm
-tuono.createDSP(audioContext, 1024)
+englishBellTest.createDSP(audioContext, 1024)
     .then(node => {
         dspNode = node;
         dspNode.connect(audioContext.destination);
@@ -51,11 +51,38 @@ tuono.createDSP(audioContext, 1024)
 //
 //==========================================================================================
 
+let lastBellTime = 0;       
+const bellCooldownMs = 500;
+
+
 function accelerationChange(accx, accy, accz) {
-    // playAudio()
+    // acc only along Y axis, on itself basically, rotating
+    return Math.abs(accy) > 1;
 }
 
 function rotationChange(rotx, roty, rotz) {
+    // check first if we are flat, or roughly flat
+    isFlat =
+        rotx > -2 && rotx < 2 &&
+        roty > -2 && roty < 2 &&
+        rotz > -2 && rotz < 2;
+
+    if (!isFlat) return;
+
+    // check if we are rotating
+    const spinDetected = accelerationChange(accelerationX, accelerationY, accelerationZ);
+
+    if (spinDetected) {
+        const now = millis();
+        if (now - lastBellTime > bellCooldownMs) {
+            lastBellTime = now;
+
+            // Turn label pink (the “turned” label)
+            statusLabels[1].style("color", "pink");
+
+            playAudio();
+        }
+    }
 }
 
 function mousePressed() {
@@ -102,8 +129,15 @@ function playAudio() {
     if (audioContext.state === 'suspended') {
         return;
     }
-    dspNode.setParamValue("/thunder/rumble", 1)
-    setTimeout(() => { dspNode.setParamValue("/thunder/rumble", 0) }, 100);
+    
+   
+    dspNode.setParamValue("/englishBell/gain", 0.8);  
+
+    //
+    dspNode.setParamValue("/englishBell/gate", 1);
+    setTimeout(() => {
+        dspNode.setParamValue("/englishBell/gate", 0);
+    }, 80);
 }
 
 //==========================================================================================
