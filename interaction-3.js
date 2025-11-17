@@ -58,13 +58,13 @@ doorTest.createDSP(audioContext, 1024)
 
 
 function accelerationChange(accx, accy, accz) {
-    return (Math.abs(accz) > 2);
+    return (Math.abs(accx) > 8);
 }
 
 
 function rotationChange(rotx, roty, rotz) {
 
-    if (rotx >= 86 && rotx <=94) {
+    if (rotx >= 80 && rotx <=90) {
         if (accelerationChange(accx, accy, accz)) {
             playAudio()
         }
