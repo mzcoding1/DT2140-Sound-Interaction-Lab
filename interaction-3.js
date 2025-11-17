@@ -56,23 +56,27 @@ doorTest.createDSP(audioContext, 1024)
 
 
 
+let upsideDown = false;
 
 function accelerationChange(accx, accy, accz) {
+
     
-    return Math.abs(accx) > 8;
+    if (Math.abs(accx) > 8 && upsideDown) {
+        playAudio();
+    }
 }
 
 function rotationChange(rotx, roty, rotz) {
 
    
     if (rotx <= -80 && rotx >= -100) {
-
-       
-        if (accelerationChange(accelerationX, accelerationY, accelerationZ)) {
-            playAudio();
-        }
+        upsideDown = true;
+    } else {
+        upsideDown = false;
     }
 }
+
+
 
 function mousePressed() {
     console.log('mouse pressed');
