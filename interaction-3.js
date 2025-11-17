@@ -65,7 +65,7 @@ function accelerationChange(accx, accy, accz) {
 function rotationChange(rotx, roty, rotz) {
 
 
-    const upright = (rotx >= 80 && rotx <= 100);
+    const upright = (rotx >= 86 && rotx <= 94);
     if (!upright) return;
 
     const strongMovement = accelerationChange(accelerationX, accelerationY, accelerationZ);
