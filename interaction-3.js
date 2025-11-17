@@ -64,7 +64,7 @@ function accelerationChange(accx, accy, accz) {
 
 function rotationChange(rotx, roty, rotz) {
 
-    if (rotx >= 80 && rotx <=90) {
+    if (rotx >= -80 && rotx <= -100) {
         if (accelerationChange(accx, accy, accz)) {
             playAudio()
         }
@@ -75,7 +75,7 @@ function rotationChange(rotx, roty, rotz) {
 
 function mousePressed() {
     console.log('mouse pressed');
-    playAudio(mouseX/windowWidth)
+    //playAudio(mouseX/windowWidth)
     // Use this for debugging from the desktop!
 }
 
@@ -132,7 +132,7 @@ function playAudio(pressure) {
         if (dspNode) {
             dspNode.setParamValue("/door/force", 0.0);
         }
-    }, 2000);
+    }, 200);
     
 
 
