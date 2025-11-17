@@ -64,8 +64,7 @@ function rotationChange(rotx, roty, rotz) {
     // check first if we are flat, or roughly flat
     isFlat =
         rotx > -2 && rotx < 2 &&
-        roty > -2 && roty < 2 &&
-        rotz > -2 && rotz < 2;
+        roty > -2 && roty < 2;
 
     if (!isFlat) return;
 
