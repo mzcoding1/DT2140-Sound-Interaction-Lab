@@ -78,7 +78,7 @@ function rotationChange(rotx, roty, rotz) {
     // check if we are rotating
     const spinDetected = accelerationChange(accelerationX, accelerationY, accelerationZ);
 
-    if (spinDetected) {
+    if (spinDetected && isPointingFlat) {
         const now = millis();
         if (now - lastBellTime > bellCooldownMs) {
             lastBellTime = now;
