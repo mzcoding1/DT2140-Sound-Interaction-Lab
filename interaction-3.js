@@ -61,7 +61,7 @@ let upsideDown = false;
 function accelerationChange(accx, accy, accz) {
 
     
-    if (Math.abs(accx)) {
+    if (Math.abs(accx) > 5) {
         playAudio();
     }
 }
@@ -80,7 +80,7 @@ function mousePressed() {
 
 function deviceMoved() {
     movetimer = millis();
-   
+    statusLabels[2].style("color", "pink");
 }
 
 function deviceTurned() {
