@@ -57,7 +57,7 @@ const bellCooldownMs = 500;
 
 function accelerationChange(accx, accy, accz) {
     // acc only along Y axis, on itself basically, rotating
-    return Math.abs(accy) > 1;
+    return Math.abs(accx) > 5;
 }
 
 function rotationChange(rotx, roty, rotz) {
