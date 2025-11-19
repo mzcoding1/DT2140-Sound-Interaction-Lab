@@ -76,11 +76,18 @@ function rotationChange(rotx, roty, rotz) {
     if (!isPointingFlat) return;
 
     // check if we are rotating
-    spinDetected = accelerationChange(accelerationX, accelerationY, accelerationZ);
+    accDetected = accelerationChange(accelerationX, accelerationY, accelerationZ);
 
-    if (spinDetected && isPointingFlat) {
+    if (accDetected && isPointingFlat) {
 
-        playAudio();
+        isPointingFlat =
+        rotx > -8 && rotx < 8 &&
+        rotx > -80 && rotx < -90 &&
+        rotx > 80 && rotx < 90 &&
+        rotz > -10 && rotz < 10;
+        if (isPointingFlat) {
+            playAudio();
+        }
         
     }
 }
