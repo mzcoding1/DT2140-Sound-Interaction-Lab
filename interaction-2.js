@@ -69,8 +69,8 @@ function rotationChange(rotx, roty, rotz) {
     // check first if we are flat, or roughly flat
     isPointingFlat =
         rotx > -8 && rotx < 8 &&
-        rotx > -80 && rotx < -90 &&
-        rotx > 80 && rotx < 90 &&
+        roty > -80 && roty < -90 &&
+        roty > 80 && roty < 90 &&
         rotz > -10 && rotz < 10;
 
     if (!isPointingFlat) return;
@@ -82,8 +82,8 @@ function rotationChange(rotx, roty, rotz) {
 
         isPointingFlat =
         rotx > -8 && rotx < 8 &&
-        rotx > -80 && rotx < -90 &&
-        rotx > 80 && rotx < 90 &&
+        roty > -80 && roty < -90 &&
+        roty > 80 && roty < 90 &&
         rotz > -10 && rotz < 10;
         if (isPointingFlat) {
             playAudio();
