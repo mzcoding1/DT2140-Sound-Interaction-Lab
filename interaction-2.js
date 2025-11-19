@@ -76,9 +76,6 @@ function rotationChange(rotx, roty, rotz) {
         if (now - lastBellTime > bellCooldownMs) {
             lastBellTime = now;
 
-            // Turn label pink (the “turned” label)
-            statusLabels[1].style("color", "pink");
-
             playAudio();
         }
     }
