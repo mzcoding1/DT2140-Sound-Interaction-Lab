@@ -12,7 +12,7 @@ let dspNodeParams = null;
 let jsonParams = null;
 
 // Change here to ("tuono") depending on your wasm file name
-const dspName = "englishBellTest";
+const dspName = "laser";
 const instance = new FaustWasm2ScriptProcessor(dspName);
 
 // output to window or npm package module
@@ -25,7 +25,7 @@ if (typeof module === "undefined") {
 }
 
 // The name should be the same as the WASM file, so change tuono with brass if you use brass.wasm
-englishBellTest.createDSP(audioContext, 1024)
+laser.createDSP(audioContext, 1024)
     .then(node => {
         dspNode = node;
         dspNode.connect(audioContext.destination);
@@ -50,6 +50,10 @@ englishBellTest.createDSP(audioContext, 1024)
 //------------------------------------------------------------------------------------------
 //
 //==========================================================================================
+// x 0
+// y just around 90 or -90
+// z around 0
+
 
 let lastBellTime = 0;       
 const bellCooldownMs = 500;
@@ -57,16 +61,19 @@ const bellCooldownMs = 500;
 
 function accelerationChange(accx, accy, accz) {
     // acc only along Y axis, on itself basically, rotating
-    return Math.abs(accx) > 5;
+    isAcceleratingUpandBack = (accx < -5 && accy < -5)
+    return isAcceleratingUpandBack
 }
 
 function rotationChange(rotx, roty, rotz) {
     // check first if we are flat, or roughly flat
-    isFlat =
-        rotx > -2 && rotx < 2 &&
-        roty > -2 && roty < 2;
+    isPointingFlat =
+        rotx > -8 && rotx < 8 &&
+        rotx > -80 && rotx < -90 &&
+        rotx > 80 && rotx < 90 &&
+        rotz > -10 && rotz < 10;
 
-    if (!isFlat) return;
+    if (!isPointingFlat) return;
 
     // check if we are rotating
     const spinDetected = accelerationChange(accelerationX, accelerationY, accelerationZ);
@@ -126,14 +133,12 @@ function playAudio() {
         return;
     }
     
-   
-    dspNode.setParamValue("/englishBell/gain", 0.8);  
-
-    //
-    dspNode.setParamValue("/englishBell/gate", 1);
+    console.log('audio should play');
+    dspNode.setParamValue("/laser/trigger", 1);  
     setTimeout(() => {
-        dspNode.setParamValue("/englishBell/gate", 0);
-    }, 80);
+        dspNode.setParamValue("/laser/trigger", 0); 
+    }, 10);
+    // 
 }
 
 //==========================================================================================
