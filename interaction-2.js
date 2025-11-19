@@ -76,15 +76,12 @@ function rotationChange(rotx, roty, rotz) {
     if (!isPointingFlat) return;
 
     // check if we are rotating
-    const spinDetected = accelerationChange(accelerationX, accelerationY, accelerationZ);
+    spinDetected = accelerationChange(accelerationX, accelerationY, accelerationZ);
 
     if (spinDetected && isPointingFlat) {
-        const now = millis();
-        if (now - lastBellTime > bellCooldownMs) {
-            lastBellTime = now;
 
-            playAudio();
-        }
+        playAudio();
+        
     }
 }
 
