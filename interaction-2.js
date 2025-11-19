@@ -61,12 +61,15 @@ const bellCooldownMs = 500;
 
 function accelerationChange(accx, accy, accz) {
     // acc only along Y axis, on itself basically, rotating
-    isAcceleratingUpandBack = (accx < -5 && accy < -5)
-    return isAcceleratingUpandBack
+    isAcceleratingUpandBack = (accx < -7 && accy < -7)
+    if (isAcceleratingUpandBack) {
+        playAudio();
+    }
 }
 
 function rotationChange(rotx, roty, rotz) {
     // check first if we are flat, or roughly flat
+    // old
     isPointingFlat =
         rotx > -8 && rotx < 8 &&
         roty > -80 && roty < -90 &&
@@ -86,7 +89,7 @@ function rotationChange(rotx, roty, rotz) {
         roty > 80 && roty < 90 &&
         rotz > -10 && rotz < 10;
         if (isPointingFlat) {
-            playAudio();
+            //playAudio();
         }
         
     }
